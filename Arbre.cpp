@@ -185,7 +185,7 @@ void Arbre::insert_feuille(int valeur)
 void Arbre::print(int i)
 {
   cout << setw(i);
-  cout << getValeur();
+  cout << getValeur() << endl;
   if(getG() != NULL)
     getG()->print(i-5);
   if(getD() != NULL)
