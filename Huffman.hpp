@@ -28,6 +28,6 @@ class Huffman
 	
 	private:
 		string tab;
-		int freq[];
+		int *freq[];
 	
 };
