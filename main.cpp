@@ -22,4 +22,5 @@ int main()
 	//arbre->affiche_croissant();
 	arbre->print(20);
 
+	string tab = "abcdefghijklmnopqrstuvwxyz_";
 }
