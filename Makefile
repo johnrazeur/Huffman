@@ -4,8 +4,11 @@ EXEC = program.exe
 
 all: $(EXEC)
 
-program.exe: Arbre.o main.o
-	$(CC) $(CFLAGS) -o program main.o Arbre.o
+program.exe: Arbre.o main.o Huffman.o
+	$(CC) $(CFLAGS) -o program main.o Arbre.o Huffman.o
+
+Huffman.o: Huffman.cpp
+	$(CC) $(CFLAGS) -o Huffman.o -c Huffman.cpp
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -o main.o -c main.cpp
