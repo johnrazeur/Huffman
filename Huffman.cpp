@@ -17,16 +17,19 @@ string Huffman::getTab()
 
 int * Huffman::getFreq(string mot)
 {
-	for(unsigned int i=0; i <= mot.length(); i++)
+	for(unsigned int i=0; i < mot.length(); i++)
 	{
-		for(unsigned int j=0; j <= tab.length(); j++)
+		for(unsigned int j=0; j < tab.length(); j++)
 		{
 			if(mot[i] == tab[j])
 			{
-				freq[j]++;
+				cout << mot.length() << " ||| " << tab[j] << endl;
+				(freq[j])++;
+				break;
 			}
 		}
+		cout << "ok";
 	}
 	
-	return freq;
+	return *freq;
 }

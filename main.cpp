@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "Arbre.hpp"
+#include "Huffman.hpp"
 
 using namespace std;
 
@@ -23,4 +24,10 @@ int main()
 	arbre->print(20);
 
 	string tab = "abcdefghijklmnopqrstuvwxyz_";
+	
+	Huffman *huff = new Huffman(tab);
+	
+	int * freq = huff->getFreq("anticonstitutionnellement");
+	
+	cout << freq[0];
 }
