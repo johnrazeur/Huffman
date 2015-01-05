@@ -21,8 +21,9 @@ class Arbre
 			* \brief Constructeur
 			* \param _parent : adresse de l'abre parent
 			* \param _valeur : valeur de l'abre
+			* \param _code : code de l'arbre
 			*/
-		Arbre(Arbre* _parent, int _valeur);
+		Arbre(Arbre* _parent, int _valeur, char _code);
 		/**
 			* \brief Getter de l'arbre gauche
 			* \return Adresse de l'arbre gauche si il existe, null sinon
@@ -64,9 +65,19 @@ class Arbre
 			*/
 		void setValeur(int valeur);
 		/**
-			* \brief Vérifie si l'arbre est vide
-			* \return true si l'arbre est vide, false sinon
+			* \brief Getter du code
+			* \return Le code de l'arbre
 			*/
+		char getCode();
+		/**
+			* \brief Définit le code de l'arbre
+			* \param _code : Le code de l'arbre
+			*/
+		void setCode(char _code);
+		/**
+		* \brief Vérifie si l'arbre est vide
+		* \return true si l'arbre est vide, false sinon
+		*/
 		bool est_vide();
 		/**
 			* \brief Vérifie si l'arbre est racine
@@ -123,4 +134,6 @@ class Arbre
 		Arbre* ABR_G;
 		Arbre* ABR_D;
 		int valeur;
+		char code;
+
 };

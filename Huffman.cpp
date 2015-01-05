@@ -15,21 +15,35 @@ string Huffman::getTab()
 	return tab;
 }
 
-int * Huffman::getFreq(string mot)
+vector<int> Huffman::getFreq(string mot)
 {
+	vector<int> _freq(tab.length(), 0);
 	for(unsigned int i=0; i < mot.length(); i++)
 	{
 		for(unsigned int j=0; j < tab.length(); j++)
 		{
 			if(mot[i] == tab[j])
 			{
-				cout << mot.length() << " ||| " << tab[j] << endl;
-				(freq[j])++;
+				//cout << mot.length() << " ||| " << tab[j] << endl;
+				_freq[j]++;
 				break;
 			}
 		}
-		cout << "ok";
 	}
-	
-	return *freq;
+	freq = _freq;
+	return freq;
+}
+
+vector<Arbre*> Huffman::trier()
+{
+		for(unsigned int i = 0; i < freq.size(); i++)
+		{
+			if(freq[i] != 0)
+			{
+				Arbre * nArbre = new Arbre(NULL, freq[i], tab[i]);
+				trie.push_back(nArbre);
+			}
+		}
+		//sort(trie.begin(), trie.end());
+		return trie;
 }

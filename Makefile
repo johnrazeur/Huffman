@@ -7,7 +7,7 @@ all: $(EXEC)
 program.exe: Arbre.o main.o Huffman.o
 	$(CC) $(CFLAGS) -o program main.o Arbre.o Huffman.o
 
-Huffman.o: Huffman.cpp
+Huffman.o: Huffman.cpp Huffman.hpp
 	$(CC) $(CFLAGS) -o Huffman.o -c Huffman.cpp
 
 main.o: main.cpp
@@ -17,4 +17,4 @@ Arbre.o: Arbre.cpp Arbre.hpp
 	$(CC) $(CFLAGS) -o Arbre.o -c Arbre.cpp
 
 clean:
-	rm -rf *.o
+	rm *.o

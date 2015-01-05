@@ -7,7 +7,7 @@ using namespace std;
 Arbre::Arbre() : parent(NULL), ABR_G(NULL), ABR_D(NULL), valeur(0)
 {}
 
-Arbre::Arbre(Arbre* _parent, int _valeur) : parent(_parent),  ABR_G(NULL), ABR_D(NULL), valeur(_valeur)
+Arbre::Arbre(Arbre* _parent, int _valeur, char _code) : parent(_parent),  ABR_G(NULL), ABR_D(NULL), valeur(_valeur), code(_code)
 {}
 
 Arbre* Arbre::getG()
@@ -163,7 +163,7 @@ void Arbre::insert_feuille(int valeur)
       }
       else
       {
-        Arbre* newArbre  = new Arbre(this, valeur);
+        Arbre* newArbre  = new Arbre(this, valeur, 0);
         setD(newArbre);
       }
     }
@@ -175,7 +175,7 @@ void Arbre::insert_feuille(int valeur)
       }
       else
       {
-        Arbre* newArbre = new Arbre(this, valeur);
+        Arbre* newArbre = new Arbre(this, valeur, 0);
         setG(newArbre);
       }
     }
