@@ -47,7 +47,7 @@ class Huffman
 
 		vector<Arbre*> trier();
 
-		vector<Arbre*> compression();
+		Arbre * compression();
 
 
 	private:

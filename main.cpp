@@ -29,11 +29,8 @@ int main()
 	vector<int> freq = huff->getFreq("anticonstitutionnellement");
 
 	//cout << freq[13];
- 	vector<Arbre*> trie = huff->trier();
- 	trie = huff->compression();
-	for(unsigned int i = 0; i < trie.size(); i++)
-	{
-		cout << trie[i]->getValeur() << endl;
-	}
-		//cout << trie[1]->getG()->getValeur() << endl;
+ 	vector <Arbre*> trie = huff->trier();
+ 	Arbre * comp = huff->compression();
+ 	
+		cout << comp->getG()->getG()->getValeur() << endl;
 }

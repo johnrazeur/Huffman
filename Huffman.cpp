@@ -53,22 +53,24 @@ vector<Arbre*> Huffman::trier()
 	return trie;
 }
 
-vector<Arbre*> Huffman::compression()
+Arbre * Huffman::compression()
 {
-	for(unsigned int i = 0; i < trie.size()-1; i++)
+	for(unsigned int i = 0; i < 2; i++)
 	{
-		if(trie[i]->getValeur() == trie[i+1]->getValeur())
+		if(trie[i]->getValeur() == trie[i+1]->getValeur() || trie[i]->getValeur() < trie[i+1]->getValeur())
 		{
 			Arbre * abr = new Arbre();
-			abr->setValeur(trie[i+1]->getValeur() + trie[i+1]->getValeur());
+			abr->setValeur(trie[i]->getValeur() + trie[i+1]->getValeur());
 			abr->setG(trie[i]);
 			abr->setD(trie[i+1]);
 			trie.erase(trie.begin()+i);
 			trie[i] = abr;
+			sort(trie.begin(), trie.end(), comparaison);
+			i--;
 		}
 	}
 
-	return trie;
+	return trie[0];
 }
 
 
