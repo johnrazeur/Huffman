@@ -54,6 +54,16 @@ void Arbre::setValeur(int _valeur)
   valeur = _valeur;
 }
 
+char Arbre::getCode()
+{
+  return code;
+}
+
+void Arbre::setCode(char _code)
+{
+  code = _code;
+}
+
 bool Arbre::est_vide()
 {
   return valeur == 0;

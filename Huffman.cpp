@@ -34,6 +34,11 @@ vector<int> Huffman::getFreq(string mot)
 	return freq;
 }
 
+bool comparaison(Arbre * i, Arbre * j)
+{
+	return (i->getValeur() < j->getValeur());
+}
+
 vector<Arbre*> Huffman::trier()
 {
 		for(unsigned int i = 0; i < freq.size(); i++)
@@ -44,6 +49,8 @@ vector<Arbre*> Huffman::trier()
 				trie.push_back(nArbre);
 			}
 		}
-		//sort(trie.begin(), trie.end());
+		sort(trie.begin(), trie.end(), comparaison);
 		return trie;
 }
+
+
