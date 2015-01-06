@@ -47,6 +47,8 @@ class Huffman
 
 		vector<Arbre*> trier();
 
+		vector<Arbre*> compression();
+
 
 	private:
 		string tab;

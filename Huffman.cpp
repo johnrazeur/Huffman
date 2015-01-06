@@ -41,16 +41,34 @@ bool comparaison(Arbre * i, Arbre * j)
 
 vector<Arbre*> Huffman::trier()
 {
-		for(unsigned int i = 0; i < freq.size(); i++)
+	for(unsigned int i = 0; i < freq.size(); i++)
+	{
+		if(freq[i] != 0)
 		{
-			if(freq[i] != 0)
-			{
-				Arbre * nArbre = new Arbre(NULL, freq[i], tab[i]);
-				trie.push_back(nArbre);
-			}
+			Arbre * nArbre = new Arbre(NULL, freq[i], tab[i]);
+			trie.push_back(nArbre);
 		}
-		sort(trie.begin(), trie.end(), comparaison);
-		return trie;
+	}
+	sort(trie.begin(), trie.end(), comparaison);
+	return trie;
+}
+
+vector<Arbre*> Huffman::compression()
+{
+	for(unsigned int i = 0; i < trie.size()-1; i++)
+	{
+		if(trie[i]->getValeur() == trie[i+1]->getValeur())
+		{
+			Arbre * abr = new Arbre();
+			abr->setValeur(trie[i+1]->getValeur() + trie[i+1]->getValeur());
+			abr->setG(trie[i]);
+			abr->setD(trie[i+1]);
+			trie.erase(trie.begin()+i);
+			trie[i] = abr;
+		}
+	}
+
+	return trie;
 }
 
 
