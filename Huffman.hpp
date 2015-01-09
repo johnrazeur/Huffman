@@ -51,13 +51,13 @@ class Huffman
 
 		void creerTab(Arbre *, string);
 
-		vector<string> getTabHuffman();
+		map<char, string> getTabHuffman();
 
 	private:
 		string tab;
 		vector<int> freq;
 		vector<Arbre*> trie;
-		vector<string> tabHuffman;
+		map<char, string> tabHuffman;
 		
 		Arbre * arbre;
 

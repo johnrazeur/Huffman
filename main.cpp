@@ -33,6 +33,10 @@ int main()
  	Arbre * comp = huff->compression();
  	huff->creerTab(comp, "");
 
- 	vector<string> tabHuffman = huff->getTabHuffman();
- 	cout << tabHuffman[0];
+ 	map<char, string> tabHuffman = huff->getTabHuffman();
+ 	cout << tabHuffman['a'] << endl;
+ 	cout << tabHuffman['c'] << endl;
+ 	cout << tabHuffman['e'] << endl;
+ 	cout << tabHuffman['i'] << endl;
+ 	cout << tabHuffman['l'] << endl;
 }

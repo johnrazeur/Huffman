@@ -8,8 +8,6 @@ Huffman::Huffman(string str)
 void Huffman::setTab(string str)
 {
 	tab = str;
-	vector<string> _tabHuffman(tab.length(), 0);
-	tabHuffman = _tabHuffman;
 }
 
 string Huffman::getTab()
@@ -95,14 +93,14 @@ void Huffman::creerTab(Arbre * abr, string code)
 		{
 			if(tab[i] == abr->getCode())
 			{
-				tabHuffman.push_back(code);
+				tabHuffman[abr->getCode()] = code;
 				break;
 			}
 		}
 	}
 }
 
-vector<string> Huffman::getTabHuffman()
+map<char, string> Huffman::getTabHuffman()
 {
 	return tabHuffman;
 }
