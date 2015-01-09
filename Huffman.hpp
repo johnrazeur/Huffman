@@ -49,10 +49,16 @@ class Huffman
 
 		Arbre * compression();
 
+		void creerTab(Arbre *, string);
+
+		vector<string> getTabHuffman();
 
 	private:
 		string tab;
 		vector<int> freq;
 		vector<Arbre*> trie;
+		vector<string> tabHuffman;
+		
+		Arbre * arbre;
 
 };

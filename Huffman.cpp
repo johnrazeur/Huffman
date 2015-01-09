@@ -8,6 +8,8 @@ Huffman::Huffman(string str)
 void Huffman::setTab(string str)
 {
 	tab = str;
+	vector<string> _tabHuffman(tab.length(), 0);
+	tabHuffman = _tabHuffman;
 }
 
 string Huffman::getTab()
@@ -69,8 +71,40 @@ Arbre * Huffman::compression()
 			i--;
 		}
 	}
-
+	arbre = trie[0];
 	return trie[0];
+}
+
+void Huffman::creerTab(Arbre * abr, string code)
+{
+	if(abr->estExterne() == false)
+	{
+		if(abr->getG() != NULL)
+		{
+			creerTab(abr->getG(), code + "0");
+		}
+
+		if(abr->getD() != NULL)
+		{
+			creerTab(abr->getD(), code + "1");
+		}
+	}
+	else
+	{
+		for(unsigned int i = 0; i < tab.length(); i++)
+		{
+			if(tab[i] == abr->getCode())
+			{
+				tabHuffman.push_back(code);
+				break;
+			}
+		}
+	}
+}
+
+vector<string> Huffman::getTabHuffman()
+{
+	return tabHuffman;
 }
 
 

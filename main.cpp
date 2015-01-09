@@ -31,6 +31,8 @@ int main()
 	//cout << freq[13];
  	vector <Arbre*> trie = huff->trier();
  	Arbre * comp = huff->compression();
- 	
-		cout << comp->getG()->getG()->getValeur() << endl;
+ 	huff->creerTab(comp, "");
+
+ 	vector<string> tabHuffman = huff->getTabHuffman();
+ 	cout << tabHuffman[0];
 }
