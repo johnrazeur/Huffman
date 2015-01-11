@@ -25,18 +25,25 @@ int main()
 	string tab = "abcdefghijklmnopqrstuvwxyz_";
 
 	Huffman *huff = new Huffman(tab);
+	
+	string mot = "anticonstitutionnellement";
 
-	vector<int> freq = huff->getFreq("anticonstitutionnellement");
+	vector<int> freq = huff->getFreq(mot);
 
 	//cout << freq[13];
  	vector <Arbre*> trie = huff->trier();
  	Arbre * comp = huff->compression();
  	huff->creerTab(comp, "");
+	 
 
  	map<char, string> tabHuffman = huff->getTabHuffman();
- 	cout << tabHuffman['a'] << endl;
- 	cout << tabHuffman['c'] << endl;
- 	cout << tabHuffman['e'] << endl;
- 	cout << tabHuffman['i'] << endl;
- 	cout << tabHuffman['l'] << endl;
+ 	/*for(unsigned int i = 0; i < mot.length(); i++)
+	{
+		cout << tabHuffman[mot[i]];
+	}*/
+	
+	string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
+	
+	huff->decompression(motcode);
+
 }

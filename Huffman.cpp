@@ -3,6 +3,8 @@
 Huffman::Huffman(string str)
 {
 	tab = str;
+	vector<string> _code_binaire(tab.length(), " ");
+	code_binaire = _code_binaire;
 }
 
 void Huffman::setTab(string str)
@@ -94,6 +96,7 @@ void Huffman::creerTab(Arbre * abr, string code)
 			if(tab[i] == abr->getCode())
 			{
 				tabHuffman[abr->getCode()] = code;
+				code_binaire[i] = code;
 				break;
 			}
 		}
@@ -103,6 +106,31 @@ void Huffman::creerTab(Arbre * abr, string code)
 map<char, string> Huffman::getTabHuffman()
 {
 	return tabHuffman;
+}
+
+//vector<string> Huffman::getCodeBinaire()
+//{
+//	return code_binaire;
+//}
+
+void Huffman::decompression(string code)
+{
+	string caractere;
+	for(unsigned int i = 0; i < code.length(); i++)
+	{
+		caractere += code[i];
+		//cout << caractere;
+		for(unsigned int i = 0; i < code_binaire.size(); i++)
+		{
+			if(caractere == code_binaire[i])
+			{
+				//cout << "Correspondance : " << caractere << " | Indice : " << i << endl;
+				cout << tab[i];
+				caractere = "";
+				break;
+			}
+		}
+	}
 }
 
 

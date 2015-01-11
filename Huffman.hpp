@@ -52,12 +52,17 @@ class Huffman
 		void creerTab(Arbre *, string);
 
 		map<char, string> getTabHuffman();
+		
+		void decompression(string code);
+		
+		//vector<string> getCodeBinaire();
 
 	private:
 		string tab;
 		vector<int> freq;
 		vector<Arbre*> trie;
 		map<char, string> tabHuffman;
+		vector<string> code_binaire;
 		
 		Arbre * arbre;
 
