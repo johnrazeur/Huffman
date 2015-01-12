@@ -1,10 +1,10 @@
 CC = g++
 CFLAGS = -Wall
-EXEC = program.exe
+EXEC = huff
 
 all: $(EXEC)
 
-program.exe: Arbre.o main.o Huffman.o
+huff: Arbre.o main.o Huffman.o
 	$(CC) $(CFLAGS) -o program main.o Arbre.o Huffman.o
 
 Huffman.o: Huffman.cpp Huffman.hpp
@@ -17,4 +17,7 @@ Arbre.o: Arbre.cpp Arbre.hpp
 	$(CC) $(CFLAGS) -o Arbre.o -c Arbre.cpp
 
 clean:
-	rm *.o
+	rm -rf *.o
+
+mrproper: clean
+	rm -rf huff
