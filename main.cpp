@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
 
 	if(argc > 1)
 	{
-		if(argv[1] == "--help")
+		if(strcmp(argv[1], "--help") == 0)
 		{
 			cout << "Paramètres :" <<endl;
 			cout << "-c [filein] -o [fileout.hff] : Compresse le fichier [filein]" << endl;
 			cout << "-x [filein.hff] : Décompresse le fichier [fileing.hff]" << endl;
 		}
-		else if(argv[1] == "-c")
+		else if(strcmp(argv[1], "-c") == 0)
 		{
 			if(argc > 4)
 			{
@@ -31,7 +31,24 @@ int main(int argc, char *argv[])
 
 				Huffman *huff = new Huffman(tab);
 
-				string mot = "anticonstitutionnellement";
+				string mot = "";
+
+				ifstream in(argv[2], ios::in);
+ 
+		        if(in)
+		        {
+		                string contenu;
+		                while(getline(in, contenu))
+		                {
+		                	mot = mot + contenu;
+		                }
+		 
+		                in.close();
+		        }
+		        else
+		                cerr << "Impossible d'ouvrir le fichier !" << endl;
+
+		            cout << mot << endl;
 
 				vector<int> freq = huff->getFreq(mot);
 
@@ -40,16 +57,16 @@ int main(int argc, char *argv[])
 				huff->creerTab(comp, "");
 				map<char, string> tabHuffman = huff->getTabHuffman();
 
-				ofstream fichier($argv[4], ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+				ofstream out(argv[4], ios::out | ios::trunc);
 
-				if(fichier)
+				if(out)
 				{
 					for(unsigned int i = 0; i < mot.length(); i++)
 					{
-						fichier << tabHuffman[mot[i]];
+						out << tabHuffman[mot[i]];
 					}
 
-					fichier.clcoose();
+					out.close();
 				}
 				else
 					cerr << "Impossible d'ouvrir le fichier !" << endl;
@@ -61,10 +78,14 @@ int main(int argc, char *argv[])
 				cout << "-c [filein] -o [fileout.hff] : Compresse le fichier [filein]" << endl;
 			}
 		}
-		else if(argv[1] == "-x")
+		else if(strcmp(argv[1], "-x") == 0)
 		{
 			if(argc > 2)
 			{
+				string tab = "abcdefghijklmnopqrstuvwxyz_";
+
+				Huffman *huff = new Huffman(tab);
+				
 				string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
 				huff->decompression(motcode);
 			}
