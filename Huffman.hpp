@@ -48,19 +48,33 @@ class Huffman
 			* \param string : Le mot à obtenir la fréquence
 			* \return Le vecteur des fréquences
 			*/
-		vector<int> getFreq();
-
+		vector<int> getFreq(string);
+		/**
+			* \brief Trie le tableau d'arbre
+			* \return Le vector d'arbre trié
+			*/
 		vector<Arbre*> trier();
-
+		/**
+			* \brief Génère l'arbre trié
+			* \return L'arbre trié
+			*/
 		Arbre * compression();
-
+		/**
+			* \brief Créer la table de Huffmane
+			* \param Arbre * : L'arbre pour générer le tableau d'huffman
+			* \param string : Le mot à compresser
+			*/
 		void creerTab(Arbre *, string);
-
+		/**
+			* \brief Getter de tabHuffman
+			* \return La map "map<char, string>" de tabHuffman
+			*/
 		map<char, string> getTabHuffman();
-		
-		string decompression(string code);
-		
-		//vector<string> getCodeBinaire();
+		/**
+			* \brief Décompresse la chaine de caractère
+			* \param code : La chaine de caractère à décompresser
+			*/
+		void decompression(string code);
 
 	private:
 		string tab;
@@ -68,7 +82,7 @@ class Huffman
 		vector<Arbre*> trie;
 		map<char, string> tabHuffman;
 		vector<string> code_binaire;
-		
+
 		Arbre * arbre;
 
 };
