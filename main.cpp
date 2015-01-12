@@ -48,8 +48,6 @@ int main(int argc, char *argv[])
 		        else
 		                cerr << "Impossible d'ouvrir le fichier !" << endl;
 
-		            cout << mot << endl;
-
 				vector<int> freq = huff->getFreq(mot);
 
 				vector <Arbre*> trie = huff->trier();
@@ -85,8 +83,24 @@ int main(int argc, char *argv[])
 				string tab = "abcdefghijklmnopqrstuvwxyz_";
 
 				Huffman *huff = new Huffman(tab);
+
+				string motcode = "";
 				
-				string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
+				ifstream in(argv[2], ios::in);
+ 
+		        if(in)
+		        {
+		                string contenu;
+		                while(getline(in, contenu))
+		                {
+		                	motcode = motcode + contenu;
+		                }
+		 
+		                in.close();
+		        }
+		        else
+		                cerr << "Impossible d'ouvrir le fichier !" << endl;
+		            
 				huff->decompression(motcode);
 			}
 			else
