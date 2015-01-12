@@ -201,3 +201,23 @@ void Arbre::print(int i)
   if(getD() != NULL)
     getD()->print(i+5);
 }
+
+void Arbre::destruction(Arbre * abr)
+{
+  if(abr->estExterne() == false)
+  {
+    if(abr->getG() != NULL)
+    {
+      destruction(abr->getG());
+    }
+
+    if(abr->getD() != NULL)
+    {
+      destruction(abr->getD());
+    }
+  }
+  else
+  {
+    delete abr;
+  }
+}

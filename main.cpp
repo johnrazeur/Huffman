@@ -7,6 +7,7 @@
 	*/
 
 #include <iostream>
+#include <fstream>
 #include "Huffman.hpp"
 
 using namespace std;
@@ -26,6 +27,32 @@ int main(int argc, char *argv[])
 		{
 			if(argc > 4)
 			{
+				string tab = "abcdefghijklmnopqrstuvwxyz_";
+
+				Huffman *huff = new Huffman(tab);
+
+				string mot = "anticonstitutionnellement";
+
+				vector<int> freq = huff->getFreq(mot);
+
+				vector <Arbre*> trie = huff->trier();
+				Arbre * comp = huff->compression();
+				huff->creerTab(comp, "");
+				map<char, string> tabHuffman = huff->getTabHuffman();
+
+				ofstream fichier($argv[4], ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+
+				if(fichier)
+				{
+					for(unsigned int i = 0; i < mot.length(); i++)
+					{
+						fichier << tabHuffman[mot[i]];
+					}
+
+					fichier.clcoose();
+				}
+				else
+					cerr << "Impossible d'ouvrir le fichier !" << endl;
 
 			}
 			else
@@ -38,7 +65,8 @@ int main(int argc, char *argv[])
 		{
 			if(argc > 2)
 			{
-
+				string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
+				huff->decompression(motcode);
 			}
 			else
 			{
@@ -53,28 +81,11 @@ int main(int argc, char *argv[])
 		cout << "Faite --help pour de l'aide" << endl;
 	}
 
-	string tab = "abcdefghijklmnopqrstuvwxyz_";
-
-	Huffman *huff = new Huffman(tab);
-
-	string mot = "anticonstitutionnellement";
-
-	vector<int> freq = huff->getFreq(mot);
-
-	//cout << freq[13];
- 	vector <Arbre*> trie = huff->trier();
- 	Arbre * comp = huff->compression();
- 	huff->creerTab(comp, "");
 
 
- 	map<char, string> tabHuffman = huff->getTabHuffman();
- 	/*for(unsigned int i = 0; i < mot.length(); i++)
-	{
-		cout << tabHuffman[mot[i]];
-	}*/
 
-	string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
 
-	huff->decompression(motcode);
+
+
 
 }
