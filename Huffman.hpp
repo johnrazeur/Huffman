@@ -28,6 +28,10 @@ class Huffman
 			* \param string : Le tableau de caractère
 			*/
 		Huffman(string);
+			/**
+			* \brief Destructeur
+			*/
+		~Huffman();
 		/**
 			* \brief Définit le tableau de caractère
 			* \param string : Le tableau de caractère

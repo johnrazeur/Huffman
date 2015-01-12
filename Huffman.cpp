@@ -7,6 +7,14 @@ Huffman::Huffman(string str)
 	code_binaire = _code_binaire;
 }
 
+Huffman::~Huffman()
+{
+	for(unsigned int i=0; i < trie.size(); i++)
+		trie[i]->destruction(trie[i]);
+
+	arbre->destruction(arbre);
+}
+
 void Huffman::setTab(string str)
 {
 	tab = str;

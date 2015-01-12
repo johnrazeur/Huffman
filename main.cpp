@@ -7,6 +7,7 @@
 	*/
 
 #include <iostream>
+#include <fstream>
 #include "Huffman.hpp"
 
 using namespace std;
@@ -37,13 +38,23 @@ int main()
 	 
 
  	map<char, string> tabHuffman = huff->getTabHuffman();
- 	/*for(unsigned int i = 0; i < mot.length(); i++)
-	{
-		cout << tabHuffman[mot[i]];
-	}*/
 	
 	string motcode = "110000001101110011110001111110110101111100110111100000100110111011001111101000001";
-	
+ 
+    ofstream fichier("test.hff", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+
+    if(fichier)
+    {
+		for(unsigned int i = 0; i < mot.length(); i++)
+		{
+			fichier << tabHuffman[mot[i]];
+		}
+
+        fichier.close();
+    }
+    else
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+
 	huff->decompression(motcode);
 
 }
