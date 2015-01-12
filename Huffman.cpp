@@ -5,6 +5,10 @@ Huffman::Huffman(string str)
 	tab = str;
 	vector<string> _code_binaire(tab.length(), " ");
 	code_binaire = _code_binaire;
+	getFreq();
+	trier();
+	compression();
+	creerTab(trie[0], "");
 }
 
 Huffman::~Huffman()
@@ -25,14 +29,31 @@ string Huffman::getTab()
 	return tab;
 }
 
-vector<int> Huffman::getFreq(string mot)
+vector<int> Huffman::getFreq()
 {
+	string corp = "";
+
+	ifstream corpus("autonomy.txt", ios::in);
+
+    if(corpus)
+    {
+            string contenu;
+            while(getline(corpus, contenu))
+            {
+            	corp = corp + contenu;
+            }
+
+            corpus.close();
+    }
+    else
+            cerr << "Impossible d'ouvrir le fichier !" << endl;
+
 	vector<int> _freq(tab.length(), 0);
-	for(unsigned int i=0; i < mot.length(); i++)
+	for(unsigned int i=0; i < corp.length(); i++)
 	{
 		for(unsigned int j=0; j < tab.length(); j++)
 		{
-			if(mot[i] == tab[j])
+			if(corp[i] == tab[j])
 			{
 				//cout << mot.length() << " ||| " << tab[j] << endl;
 				_freq[j]++;
@@ -121,9 +142,10 @@ map<char, string> Huffman::getTabHuffman()
 //	return code_binaire;
 //}
 
-void Huffman::decompression(string code)
+string Huffman::decompression(string code)
 {
 	string caractere;
+	string decomp = "";
 	for(unsigned int i = 0; i < code.length(); i++)
 	{
 		caractere += code[i];
@@ -133,12 +155,14 @@ void Huffman::decompression(string code)
 			if(caractere == code_binaire[i])
 			{
 				//cout << "Correspondance : " << caractere << " | Indice : " << i << endl;
-				cout << tab[i];
+				decomp = decomp + tab[i];
 				caractere = "";
 				break;
 			}
 		}
 	}
+
+	return decomp;
 }
 
 

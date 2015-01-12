@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <fstream>
 #include "Arbre.hpp"
 
 using namespace std;
@@ -47,7 +48,7 @@ class Huffman
 			* \param string : Le mot à obtenir la fréquence
 			* \return Le vecteur des fréquences
 			*/
-		vector<int> getFreq(string);
+		vector<int> getFreq();
 
 		vector<Arbre*> trier();
 
@@ -57,7 +58,7 @@ class Huffman
 
 		map<char, string> getTabHuffman();
 		
-		void decompression(string code);
+		string decompression(string code);
 		
 		//vector<string> getCodeBinaire();
 

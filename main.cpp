@@ -48,11 +48,6 @@ int main(int argc, char *argv[])
 		        else
 		                cerr << "Impossible d'ouvrir le fichier !" << endl;
 
-				vector<int> freq = huff->getFreq(mot);
-
-				vector <Arbre*> trie = huff->trier();
-				Arbre * comp = huff->compression();
-				huff->creerTab(comp, "");
 				map<char, string> tabHuffman = huff->getTabHuffman();
 
 				ofstream out(argv[4], ios::out | ios::trunc);
@@ -84,24 +79,49 @@ int main(int argc, char *argv[])
 
 				Huffman *huff = new Huffman(tab);
 
-				string motcode = "";
-				
+		        string motcode = "";
+
 				ifstream in(argv[2], ios::in);
  
 		        if(in)
 		        {
-		                string contenu;
-		                while(getline(in, contenu))
-		                {
-		                	motcode = motcode + contenu;
-		                }
-		 
-		                in.close();
+	                string contenu;
+	                while(getline(in, contenu))
+	                {
+	                	motcode = motcode + contenu;
+	                }
 		        }
 		        else
-		                cerr << "Impossible d'ouvrir le fichier !" << endl;
-		            
-				huff->decompression(motcode);
+		            cerr << "Impossible d'ouvrir le fichier !" << endl;
+
+		        in.close();
+
+				string decomp = huff->decompression(motcode);
+
+				string nomfichier = argv[2];
+				string fichier = "";
+
+				for(unsigned int i=0; i < nomfichier.length(); i++)
+				{
+					if(nomfichier[i] == '.')
+					{
+						for(unsigned int j=0; j < i; j++)
+							fichier = fichier + nomfichier[j];
+						break;
+					}
+				}
+
+				fichier = fichier + ".txt";
+
+				ofstream out(fichier.c_str(), ios::out | ios::trunc);
+
+				if(out)
+				{
+					out << decomp;
+				}
+				else
+					cerr << "Impossible d'ouvrir le fichier !" << endl;
+				out.close();
 			}
 			else
 			{
@@ -115,12 +135,5 @@ int main(int argc, char *argv[])
 		cout << "Pas de paramètres" << endl;
 		cout << "Faite --help pour de l'aide" << endl;
 	}
-
-
-
-
-
-
-
 
 }
