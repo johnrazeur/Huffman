@@ -48,7 +48,7 @@ class Huffman
 			* \param string : Le mot à obtenir la fréquence
 			* \return Le vecteur des fréquences
 			*/
-		vector<int> getFreq(string);
+		vector<int> getFreq();
 		/**
 			* \brief Trie le tableau d'arbre
 			* \return Le vector d'arbre trié
@@ -74,7 +74,7 @@ class Huffman
 			* \brief Décompresse la chaine de caractère
 			* \param code : La chaine de caractère à décompresser
 			*/
-		void decompression(string code);
+		string decompression(string code);
 
 	private:
 		string tab;
