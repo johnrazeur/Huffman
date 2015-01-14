@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
 				//Récupération des noms de fichiers en paramètre
 				string filein = "in/" + string(argv[2]);
-				string fileout = "out/" + string(argv[3]);
+				string fileout = "out/" + string(argv[3]) + ".txt";
 
 				//Decompression
 				huff->fichierDecompresse(filein, fileout);
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 			else
 			{
 				cout << "Utilisation de -x:" << endl;
-				cout << "-x [filein.hff] [fileout.ext] : Décompresse le fichier [fileing.hff] dans le fichier [fileout.ext]" << endl;
+				cout << "-x [filein.hff] [fileout] : Décompresse le fichier [fileing.hff] dans le fichier [fileout].txt" << endl;
 			}
 		}
 	}
