@@ -30,70 +30,11 @@ int main(int argc, char *argv[])
 			{
 				Huffman *huff = new Huffman();
 
-				string mot = "";
-				string filein = "in/" + string(argv[2]);
-
-				ifstream in(filein.c_str(), ios::in);
- 
-		        if(in)
-		        {
-		                string contenu;
-		                while(getline(in, contenu))
-		                {
-		                	mot = mot + contenu;
-		                }
-		 
-		                in.close();
-		        }
-		        else
-		                cerr << "Impossible d'ouvrir le fichier !" << endl;
-
-				map<char, string> tabHuffman = huff->getTabHuffman();
 				
+				string filein = "in/" + string(argv[2]);
 				string fileout = "out/" + string(argv[4]);
 
-				ofstream out(fileout.c_str(), ofstream::binary);
-
-				if(out)
-				{
-					string sortie = "";
-					for(unsigned int i = 0; i < mot.length(); i++)
-						sortie = sortie + tabHuffman[mot[i]];
-
-					//unsigned char temp[8];
-					cout << sortie << endl;
-
-					string octet;
-					vector<char> carac;
-					unsigned int mort = 0;
-					for(unsigned int i=0; i < sortie.length(); i++)
-					{
-						octet = octet + sortie[i];
-						if((i+1)%8 == 0)
-						{
-							carac.push_back((char)bitset<8>(octet).to_ulong());
-							octet = "";
-						}
-						else if(i == sortie.length()-1)
-						{
-							mort = (i+1)%8;
-							for(unsigned int j=0; j < mort; j++)
-								octet = octet+ "0";
-							carac.push_back((char)bitset<8>(octet).to_ulong());
-							octet = "";
-						}
-					}
-
-					carac.insert(carac.begin(), (char)mort);
-
-					for(unsigned i = 0; i < carac.size(); i++)
-						out << carac[i];
-
-					out.close();
-				}
-				else
-					cerr << "Impossible d'ouvrir le fichier !" << endl;
-
+				huff->fichierCompresse(filein, fileout);
 			}
 			else
 			{
@@ -103,71 +44,18 @@ int main(int argc, char *argv[])
 		}
 		else if(strcmp(argv[1], "-x") == 0)
 		{
-			if(argc > 2)
+			if(argc > 3)
 			{
 				Huffman *huff = new Huffman();
 				
 				string filein = "in/" + string(argv[2]);
-
-				ifstream in(filein.c_str(), ios::in);
-
-				string result = "";
-				int mort = 0;
- 
-		        if(in)
-		        {
-	                char contenu;
-
-	                in.get(contenu);
-
-	                mort = (int) contenu;
-	                
-	                while(in.get(contenu))
-	                	result = result + bitset<8>(contenu).to_string();
-		        }
-		        else
-		            cerr << "Impossible d'ouvrir le fichier !" << endl;
-
-		        string motcode = "";
-		        mort = mort + 1;
-		        for(unsigned int i=0; i < result.size()-mort; i++)
-		        {
-		        	motcode = motcode + result[i];
-		        }
-
-		        in.close();
-
-				string decomp = huff->decompression(motcode);
-
-				string nomfichier = argv[2];
-				string fichier = "";
-
-				for(unsigned int i=0; i < nomfichier.length(); i++)
-				{
-					if(nomfichier[i] == '.')
-					{
-						for(unsigned int j=0; j < i; j++)
-							fichier = fichier + nomfichier[j];
-						break;
-					}
-				}
-
-				fichier = "out/" + fichier + ".txt";
-
-				ofstream out(fichier.c_str(), ios::out | ios::trunc);
-
-				if(out)
-				{
-					out << decomp;
-				}
-				else
-					cerr << "Impossible d'ouvrir le fichier !" << endl;
-				out.close();
+				string fileout = "out/" + string(argv[3]) + ".txt";
+				huff->fichierDecompresse(filein, fileout);
 			}
 			else
 			{
 				cout << "Utilisation de -x:" << endl;
-				cout << "-x [filein.hff] : Décompresse le fichier [fileing.hff]" << endl;
+				cout << "-x [filein.hff] [fileout] : Décompresse le fichier [fileing.hff] dans le fichier [fileout].txt" << endl;
 			}
 		}
 	}

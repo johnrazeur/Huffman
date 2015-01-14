@@ -55,7 +55,6 @@ vector<int> Huffman::getFreq()
 		{
 			if(corp[i] == tab[j])
 			{
-				//cout << mot.length() << " ||| " << tab[j] << endl;
 				_freq[j]++;
 				break;
 			}
@@ -137,11 +136,6 @@ map<char, string> Huffman::getTabHuffman()
 	return tabHuffman;
 }
 
-//vector<string> Huffman::getCodeBinaire()
-//{
-//	return code_binaire;
-//}
-
 string Huffman::decompression(string code)
 {
 	string caractere;
@@ -149,12 +143,11 @@ string Huffman::decompression(string code)
 	for(unsigned int i = 0; i < code.length(); i++)
 	{
 		caractere += code[i];
-		//cout << caractere;
+
 		for(unsigned int i = 0; i < code_binaire.size(); i++)
 		{
 			if(caractere == code_binaire[i])
 			{
-				//cout << "Correspondance : " << caractere << " | Indice : " << i << endl;
 				decomp = decomp + tab[i];
 				caractere = "";
 				break;
@@ -169,6 +162,104 @@ void Huffman::creerTabCarac()
 {
 	for(unsigned int i=32; i <= 255; i++)
 		tab = tab + (char) i;
+}
+
+void Huffman::fichierCompresse(string filein, string fileout)
+{
+	string mot = "";
+	ifstream in(filein.c_str(), ios::in);
+
+    if(in)
+    {
+            string contenu;
+            while(getline(in, contenu))
+            {
+            	mot = mot + contenu;
+            }
+
+            in.close();
+    }
+    else
+            cerr << "Impossible d'ouvrir le fichier !" << endl;
+
+	ofstream out(fileout.c_str(), ofstream::binary);
+
+	if(out)
+	{
+		string sortie = "";
+		for(unsigned int i = 0; i < mot.length(); i++)
+			sortie = sortie + tabHuffman[mot[i]];
+
+		string octet;
+		vector<char> carac;
+		unsigned int mort = 0;
+		for(unsigned int i=0; i < sortie.length(); i++)
+		{
+			octet = octet + sortie[i];
+			if((i+1)%8 == 0)
+			{
+				carac.push_back((char)bitset<8>(octet).to_ulong());
+				octet = "";
+			}
+			else if(i == sortie.length()-1)
+			{
+				mort = 8 - ((i+1)%8);
+				for(unsigned int j=0; j < mort; j++)
+					octet = octet+ "0";
+				carac.push_back((char)bitset<8>(octet).to_ulong());
+				octet = "";
+			}
+		}
+
+		carac.insert(carac.begin(), (char)mort);
+
+		for(unsigned i = 0; i < carac.size(); i++)
+			out << carac[i];
+
+		out.close();
+	}
+	else
+		cerr << "Impossible d'ouvrir le fichier !" << endl;
+}
+
+void Huffman::fichierDecompresse(string filein, string fileout)
+{
+	ifstream in(filein.c_str(), ios::in);
+
+	string result = "";
+	int mort = 0;
+
+    if(in)
+    {
+        char contenu;
+        in.get(contenu);
+        mort = (int) contenu;
+        
+        while(in.get(contenu))
+        	result = result + bitset<8>(contenu).to_string();
+
+        in.close();
+    }
+    else
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+
+    string motcode = "";
+    for(unsigned int i=0; i < result.size()-mort; i++)
+    {
+    	motcode = motcode + result[i];
+    }
+
+	string decomp = decompression(motcode);
+
+	ofstream out(fileout.c_str(), ios::out | ios::trunc);
+
+	if(out)
+	{
+		out << decomp;
+		out.close();
+	}
+	else
+		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
 
 

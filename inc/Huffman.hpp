@@ -12,6 +12,7 @@
 #include <map>
 #include <algorithm>
 #include <fstream>
+#include <bitset>
 #include "Arbre.hpp"
 
 using namespace std;
@@ -77,6 +78,10 @@ class Huffman
 		string decompression(string code);
 
 		void creerTabCarac();
+
+		void fichierCompresse(string, string);
+
+		void fichierDecompresse(string, string);
 
 	private:
 		string tab;
