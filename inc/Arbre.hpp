@@ -129,6 +129,10 @@ class Arbre
 			*/
 		void print(int);
 
+			/**
+			* \brief Destruction d'un arbre
+			* \param Arbre * : Arbre à détruire
+			*/
 		void destruction(Arbre *);
 
 	private:

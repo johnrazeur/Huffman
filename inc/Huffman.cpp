@@ -2,12 +2,23 @@
 
 Huffman::Huffman()
 {
+	//Création du tableau de caractères ASCII
 	creerTabCarac();
+
+	//Création du tableau de code binaire
 	vector<string> _code_binaire(tab.length(), " ");
 	code_binaire = _code_binaire;
+
+	//Récupération des fréquences de chaque caractères du corpus
 	getFreq();
+
+	//Triage du vector en fonction du poid du caractère
 	trier();
+
+	//Création de l'arbre de fréquence
 	compression();
+
+	//Création du tableau de Huffman
 	creerTab(trie[0], "");
 }
 
@@ -19,20 +30,11 @@ Huffman::~Huffman()
 	arbre->destruction(arbre);
 }
 
-void Huffman::setTab(string str)
-{
-	tab = str;
-}
-
-string Huffman::getTab()
-{
-	return tab;
-}
-
+//Récupération des fréquences de chaque caractères du corpus
 vector<int> Huffman::getFreq()
 {
+	//Récupération du corpus dans le fichier
 	string corp = "";
-
 	ifstream corpus("corpus/autonomy.txt", ios::in);
 
     if(corpus)
@@ -47,6 +49,7 @@ vector<int> Huffman::getFreq()
     else
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 
+	//Création du tableau de fréquence de caractères
 	vector<int> _freq(tab.length(), 0);
 	for(unsigned int i=0; i < corp.length(); i++)
 	{
@@ -63,13 +66,16 @@ vector<int> Huffman::getFreq()
 	return freq;
 }
 
+//Fonction de comparaison de deux Arbres
 bool comparaison(Arbre * i, Arbre * j)
 {
 	return (i->getValeur() < j->getValeur());
 }
 
+//Triage du tableau de fréquence
 vector<Arbre*> Huffman::trier()
 {
+	//Récupération des caractères ayant une fréquence non-nulle
 	for(unsigned int i = 0; i < freq.size(); i++)
 	{
 		if(freq[i] != 0)
@@ -78,10 +84,13 @@ vector<Arbre*> Huffman::trier()
 			trie.push_back(nArbre);
 		}
 	}
+
+	//Triage par ordre de poids
 	sort(trie.begin(), trie.end(), comparaison);
 	return trie;
 }
 
+//Création de l'arbre de fréquence
 Arbre * Huffman::compression()
 {
 	for(unsigned int i = 0; i < trie.size()-1; i++)
@@ -102,6 +111,7 @@ Arbre * Huffman::compression()
 	return trie[0];
 }
 
+//Création du tableau de Huffman
 void Huffman::creerTab(Arbre * abr, string code)
 {
 	if(abr->estExterne() == false)
@@ -130,11 +140,7 @@ void Huffman::creerTab(Arbre * abr, string code)
 	}
 }
 
-map<char, string> Huffman::getTabHuffman()
-{
-	return tabHuffman;
-}
-
+//Décompression d'un texte
 string Huffman::decompression(string code)
 {
 	string caractere;
@@ -157,17 +163,19 @@ string Huffman::decompression(string code)
 	return decomp;
 }
 
+//Création du tableau de caractères ASCII
 void Huffman::creerTabCarac()
 {
 	for(unsigned int i=32; i <= 255; i++)
 		tab = tab + (char) i;
 }
 
+//Compression d'un fichier
 void Huffman::fichierCompresse(string filein, string fileout)
 {
+	//Récupération du texte à compresser
 	string mot = "";
 	ifstream in(filein.c_str(), ios::in);
-
     if(in)
     {
         string contenu;
@@ -179,16 +187,18 @@ void Huffman::fichierCompresse(string filein, string fileout)
         in.close();
     }
     else
-            cerr << "Impossible d'ouvrir le fichier !" << endl;
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
 
+    //Ecriture du texte compressé dans le fichier
 	ofstream out(fileout.c_str(), ofstream::binary);
-
 	if(out)
 	{
+		//Récupération du tableau de caractère
 		string sortie = "";
 		for(unsigned int i = 0; i < mot.length(); i++)
 			sortie = sortie + tabHuffman[mot[i]];
 
+		//Découpage de la suite de bits en octets
 		string octet;
 		vector<char> carac;
 		unsigned int mort = 0;
@@ -202,16 +212,19 @@ void Huffman::fichierCompresse(string filein, string fileout)
 			}
 			else if(i == sortie.length()-1)
 			{
+				//Définition du nombre de bits morts
 				mort = 8 - ((i+1)%8);
 				for(unsigned int j=0; j < mort; j++)
 					octet = octet+ "0";
+
 				carac.push_back((char)bitset<8>(octet).to_ulong());
-				octet = "";
 			}
 		}
 
+		//Ajout du nombre de bits mort en début de fichier
 		carac.insert(carac.begin(), (char)mort);
 
+		//Ecriture des caractères compressés dans le fichier
 		for(unsigned i = 0; i < carac.size(); i++)
 			out << carac[i];
 
@@ -221,13 +234,14 @@ void Huffman::fichierCompresse(string filein, string fileout)
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
 
+//Décompression d'un fichier
 void Huffman::fichierDecompresse(string filein, string fileout)
 {
-	ifstream in(filein.c_str(), ios::in);
-
 	string result = "";
 	int mort = 0;
 
+	//Récupération du fichier compressé
+	ifstream in(filein.c_str(), ios::in);
     if(in)
     {
         char contenu;
@@ -242,16 +256,18 @@ void Huffman::fichierDecompresse(string filein, string fileout)
     else
         cerr << "Impossible d'ouvrir le fichier !" << endl;
 
+    //Suppression des bits morts
     string motcode = "";
     for(unsigned int i=0; i < result.size()-mort; i++)
     {
     	motcode = motcode + result[i];
     }
 
+    //Décompression du texte
 	string decomp = decompression(motcode);
 
+	//Ecriture du texte décompressé dans le fichier
 	ofstream out(fileout.c_str(), ios::out | ios::trunc);
-
 	if(out)
 	{
 		out << decomp;

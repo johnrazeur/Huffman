@@ -27,7 +27,6 @@ class Huffman
 	public:
 		/**
 			* \brief Constructeur
-			* \param string : Le tableau de caractère
 			*/
 		Huffman();
 			/**
@@ -35,18 +34,7 @@ class Huffman
 			*/
 		~Huffman();
 		/**
-			* \brief Définit le tableau de caractère
-			* \param string : Le tableau de caractère
-			*/
-		void setTab(string);
-		/**
-			* \brief Getter du tableau de caractère
-			* \return Le tableau de caractère
-			*/
-		string getTab();
-		/**
 			* \brief Getter de la fréquence du mot donné
-			* \param string : Le mot à obtenir la fréquence
 			* \return Le vecteur des fréquences
 			*/
 		vector<int> getFreq();
@@ -66,11 +54,6 @@ class Huffman
 			* \param string : Le mot à compresser
 			*/
 		void creerTab(Arbre *, string);
-		/**
-			* \brief Getter de tabHuffman
-			* \return La map "map<char, string>" de tabHuffman
-			*/
-		map<char, string> getTabHuffman();
 		/**
 			* \brief Décompresse la chaine de caractère
 			* \param code : La chaine de caractère à décompresser

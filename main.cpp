@@ -15,25 +15,27 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
 	if(argc > 1)
 	{
+		//Cas aide
 		if(strcmp(argv[1], "--help") == 0)
 		{
 			cout << "Paramètres :" <<endl;
 			cout << "-c [filein] -o [fileout.hff] : Compresse le fichier [filein]" << endl;
 			cout << "-x [filein.hff] : Décompresse le fichier [fileing.hff]" << endl;
 		}
+		//Cas compression d'un fichier
 		else if(strcmp(argv[1], "-c") == 0)
 		{
 			if(argc > 4)
 			{
 				Huffman *huff = new Huffman();
-
 				
+				//Récupération des noms de fichiers en paramètre
 				string filein = "in/" + string(argv[2]);
 				string fileout = "out/" + string(argv[4]);
 
+				//Compression
 				huff->fichierCompresse(filein, fileout);
 			}
 			else
@@ -42,20 +44,24 @@ int main(int argc, char *argv[])
 				cout << "-c [filein] -o [fileout.hff] : Compresse le fichier [filein]" << endl;
 			}
 		}
+		//Cas décompression d'un fichier
 		else if(strcmp(argv[1], "-x") == 0)
 		{
 			if(argc > 3)
 			{
 				Huffman *huff = new Huffman();
-				
+
+				//Récupération des noms de fichiers en paramètre
 				string filein = "in/" + string(argv[2]);
-				string fileout = "out/" + string(argv[3]) + ".txt";
+				string fileout = "out/" + string(argv[3]);
+
+				//Decompression
 				huff->fichierDecompresse(filein, fileout);
 			}
 			else
 			{
 				cout << "Utilisation de -x:" << endl;
-				cout << "-x [filein.hff] [fileout] : Décompresse le fichier [fileing.hff] dans le fichier [fileout].txt" << endl;
+				cout << "-x [filein.hff] [fileout.ext] : Décompresse le fichier [fileing.hff] dans le fichier [fileout.ext]" << endl;
 			}
 		}
 	}
