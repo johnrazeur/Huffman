@@ -28,9 +28,7 @@ int main(int argc, char *argv[])
 		{
 			if(argc > 4)
 			{
-				string tab = "abcdefghijklmnopqrstuvwxyz_- ";
-
-				Huffman *huff = new Huffman(tab);
+				Huffman *huff = new Huffman();
 
 				string mot = "";
 
@@ -103,9 +101,7 @@ int main(int argc, char *argv[])
 		{
 			if(argc > 2)
 			{
-				string tab = "abcdefghijklmnopqrstuvwxyz_- ";
-
-				Huffman *huff = new Huffman(tab);
+				Huffman *huff = new Huffman();
 
 				ifstream in(argv[2], ios::in);
 
@@ -128,7 +124,7 @@ int main(int argc, char *argv[])
 		            cerr << "Impossible d'ouvrir le fichier !" << endl;
 
 		        string motcode = "";
-		        for(unsigned int i=0; i < result.size()-mort; i++)
+		        for(unsigned int i=0; i < result.size()-mort-1; i++)
 		        {
 		        	motcode = motcode + result[i];
 		        }

@@ -1,8 +1,8 @@
 #include "Huffman.hpp"
 
-Huffman::Huffman(string str)
+Huffman::Huffman()
 {
-	tab = str;
+	creerTabCarac();
 	vector<string> _code_binaire(tab.length(), " ");
 	code_binaire = _code_binaire;
 	getFreq();
@@ -86,7 +86,7 @@ vector<Arbre*> Huffman::trier()
 
 Arbre * Huffman::compression()
 {
-	for(unsigned int i = 0; i < 2; i++)
+	for(unsigned int i = 0; i < trie.size()-1; i++)
 	{
 		if(trie[i]->getValeur() == trie[i+1]->getValeur() || trie[i]->getValeur() < trie[i+1]->getValeur())
 		{
@@ -163,6 +163,12 @@ string Huffman::decompression(string code)
 	}
 
 	return decomp;
+}
+
+void Huffman::creerTabCarac()
+{
+	for(unsigned int i=32; i <= 255; i++)
+		tab = tab + (char) i;
 }
 
 

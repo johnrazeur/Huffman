@@ -28,7 +28,7 @@ class Huffman
 			* \brief Constructeur
 			* \param string : Le tableau de caractère
 			*/
-		Huffman(string);
+		Huffman();
 			/**
 			* \brief Destructeur
 			*/
@@ -75,6 +75,8 @@ class Huffman
 			* \param code : La chaine de caractère à décompresser
 			*/
 		string decompression(string code);
+
+		void creerTabCarac();
 
 	private:
 		string tab;
