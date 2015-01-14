@@ -33,7 +33,7 @@ vector<int> Huffman::getFreq()
 {
 	string corp = "";
 
-	ifstream corpus("autonomy.txt", ios::in);
+	ifstream corpus("corpus/autonomy.txt", ios::in);
 
     if(corpus)
     {

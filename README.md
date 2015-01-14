@@ -9,4 +9,26 @@ Compilation
 -----------
 Pour compiler, il faut executer le makefile
 
- `make`
+    make
+
+ Pour supprimer les fichiers inutiles, executez la commande suivante :
+
+    make clean
+
+Utilisation
+-----------
+Le programme comporte deux commandes, une pour compresser et l'autre pour décompresser.
+
+Une aide est disponible avec la commande suivante :
+
+    huff --help
+
+Les paramètres sont :
+
+`-c [filein] -o [fileout.hff] : Compresse le fichier [filein]`
+
+`-x [filein.hff] : Décompresse le fichier [fileing.hff]`
+
+Les fichiers à traiter sont à mettre dans le dossier 'in'.
+
+Les fichiers traités seront écrit dans le dossier 'out' .s
