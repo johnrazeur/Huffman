@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
 						sortie = sortie + tabHuffman[mot[i]];
 
 					//unsigned char temp[8];
+					cout << sortie << endl;
 
 					string octet;
 					vector<char> carac;
@@ -106,7 +107,7 @@ int main(int argc, char *argv[])
 				ifstream in(argv[2], ios::in);
 
 				string result = "";
-				int mort;
+				int mort = 0;
  
 		        if(in)
 		        {
@@ -115,7 +116,6 @@ int main(int argc, char *argv[])
 	                in.get(contenu);
 
 	                mort = (int) contenu;
-
 	                
 	                while(in.get(contenu))
 	                	result = result + bitset<8>(contenu).to_string();
@@ -124,7 +124,8 @@ int main(int argc, char *argv[])
 		            cerr << "Impossible d'ouvrir le fichier !" << endl;
 
 		        string motcode = "";
-		        for(unsigned int i=0; i < result.size()-mort-1; i++)
+		        mort = mort + 1;
+		        for(unsigned int i=0; i < result.size()-mort; i++)
 		        {
 		        	motcode = motcode + result[i];
 		        }
