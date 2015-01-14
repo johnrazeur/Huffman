@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 		{
 			cout << "Paramètres :" <<endl;
 			cout << "-c [filein] -o [fileout.hff] : Compresse le fichier [filein]" << endl;
-			cout << "-x [filein.hff] : Décompresse le fichier [fileing.hff]" << endl;
+			cout << "-x [filein.hff] [fileout] : Décompresse le fichier [fileing.hff] dans le fichier [fileout].txt" << endl;
 		}
 		//Cas compression d'un fichier
 		else if(strcmp(argv[1], "-c") == 0)
