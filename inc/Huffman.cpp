@@ -37,16 +37,15 @@ vector<int> Huffman::getFreq()
 
     if(corpus)
     {
-            string contenu;
-            while(getline(corpus, contenu))
-            {
-            	corp = corp + contenu;
-            }
-
-            corpus.close();
+        string contenu;
+        while(getline(corpus, contenu))
+        {
+        	corp = corp + contenu;
+        }
+        corpus.close();
     }
     else
-            cerr << "Impossible d'ouvrir le fichier !" << endl;
+		cerr << "Impossible d'ouvrir le fichier !" << endl;
 
 	vector<int> _freq(tab.length(), 0);
 	for(unsigned int i=0; i < corp.length(); i++)
@@ -171,13 +170,13 @@ void Huffman::fichierCompresse(string filein, string fileout)
 
     if(in)
     {
-            string contenu;
-            while(getline(in, contenu))
-            {
-            	mot = mot + contenu;
-            }
+        string contenu;
+        while(getline(in, contenu))
+        {
+        	mot = mot + contenu;
+        }
 
-            in.close();
+        in.close();
     }
     else
             cerr << "Impossible d'ouvrir le fichier !" << endl;

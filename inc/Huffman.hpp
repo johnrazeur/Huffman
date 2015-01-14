@@ -76,11 +76,21 @@ class Huffman
 			* \param code : La chaine de caractère à décompresser
 			*/
 		string decompression(string code);
-
+		/**
+			* \brief Créer la table des caratères ASCII
+			*/
 		void creerTabCarac();
-
+		/**
+			* \brief Lit un fichier et compresse son contenu dans un autre fichier
+			* \param string : Le nom du fichier d'entrée
+			* \param string : Le nom du fichier de sortie
+			*/
 		void fichierCompresse(string, string);
-
+		/**
+			* \brief Décopresse un fichier et renvoi le résultat dans un autre fichier
+			* \param string : Le nom du fichier d'entrée
+			* \param string : Le nom du fichier de sortie
+			*/
 		void fichierDecompresse(string, string);
 
 	private:
